@@ -18,7 +18,7 @@ const Scene = {
 		animPercent: 0.00,
 		text: "DAWIN"
 	},
-	animate: () => {		
+	animate: () => {
 		requestAnimationFrame(Scene.animate);
 		Scene.vars.raycaster.setFromCamera(Scene.vars.mouse, Scene.vars.camera);
 
@@ -140,7 +140,7 @@ const Scene = {
 
 			callback();
 		});
-		
+
 	},
 	loadText: (text, scale, position, rotation, color, namespace, callback) => {
 		let loader = new THREE.FontLoader();
@@ -191,7 +191,7 @@ const Scene = {
 	},
 	onMouseMove: (event) => {
 		Scene.vars.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-		Scene.vars.mouse.y = -(event.clientY / window.innerHeight ) * 2 + 1;
+		Scene.vars.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 	},
 	init: () => {
 		let vars = Scene.vars;
@@ -210,7 +210,7 @@ const Scene = {
 		vars.renderer = new THREE.WebGLRenderer({ antialias: true });
 		vars.renderer.setPixelRatio(window.devicePixelRatio);
 		vars.renderer.setSize(window.innerWidth, window.innerHeight);
-		
+
 		vars.renderer.shadowMap.enabled = true;
 		vars.renderer.shadowMapSoft = true;
 
@@ -300,7 +300,7 @@ const Scene = {
 
 		// ajout de la sphère
 		let geometry = new THREE.SphereGeometry(1000, 32, 32);
-		let material = new THREE.MeshPhongMaterial({color: new THREE.Color(0xFFFFFF)});
+		let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(0xFFFFFF) });
 		material.side = THREE.DoubleSide;
 		let sphere = new THREE.Mesh(geometry, material);
 		vars.scene.add(sphere);
@@ -318,67 +318,75 @@ const Scene = {
 				Scene.loadFBX("Socle_Partie1.FBX", 10, [0, 0, 0], [0, 0, 0], 0x1A1A1A, 'socle1', () => {
 					Scene.loadFBX("Socle_Partie2.FBX", 10, [0, 0, 0], [0, 0, 0], 0x1A1A1A, 'socle2', () => {
 						Scene.loadFBX("Plaquette.FBX", 10, [0, 4, 45], [0, 0, 0], 0xFFFFFF, 'plaquette', () => {
-							Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
-								
-								let vars = Scene.vars;
-								
-								let gold = new THREE.Group();
-								gold.add(vars.socle1);
-								gold.add(vars.socle2);
-								gold.add(vars.statuette);
-								gold.add(vars.logo);
-								gold.add(vars.texte);
-								gold.add(vars.plaquette);
+							Scene.loadFBX("Button.FBX", 10, [0, 45, 180], [0, 0, 0], 'bouton', () => {
+								Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
 
-								let logo2 = vars.logo.clone();
-								logo2.rotation.z = Math.PI;
-								logo2.position.x = -45;
-								vars.logo2 = logo2;
-								gold.add(logo2);
-								gold.position.z = -50;
-								gold.position.y = 10;
-								vars.scene.add(gold);
-								vars.goldGroup = gold;
+									let vars = Scene.vars;
 
-								let silver = gold.clone();
-								silver.position.set(-200, 10, 0);
-								silver.rotation.y = Math.PI / 4;
-								silver.children[2].traverse(node => {
-									if (node.isMesh) {
-										node.material = new THREE.MeshStandardMaterial({
-											color: new THREE.Color(0xC0C0C0),
-											metalness: .6,
-											roughness: .3
-										})
-									}
+									// Statue or
+									let gold = new THREE.Group();
+									gold.add(vars.socle1);
+									gold.add(vars.socle2);
+									gold.add(vars.statuette);
+									gold.add(vars.logo);
+									gold.add(vars.texte);
+									gold.add(vars.plaquette);
+
+									let logo2 = vars.logo.clone();
+									logo2.rotation.z = Math.PI;
+									logo2.position.x = -45;
+									vars.logo2 = logo2;
+									gold.add(logo2);
+									gold.position.z = -50;
+									gold.position.y = 10;
+									vars.scene.add(gold);
+									vars.goldGroup = gold;
+
+									// Statue argent
+									let silver = gold.clone();
+									silver.position.set(-200, 10, 0);
+									silver.rotation.y = Math.PI / 4;
+									silver.children[2].traverse(node => {
+										if (node.isMesh) {
+											node.material = new THREE.MeshStandardMaterial({
+												color: new THREE.Color(0xC0C0C0),
+												metalness: .6,
+												roughness: .3
+											})
+										}
+									});
+									vars.scene.add(silver);
+									vars.silverGroup = silver;
+
+									// Statue bronze
+									let bronze = gold.clone();
+									bronze.position.set(200, 10, 0);
+									bronze.rotation.y = -Math.PI / 4;
+									bronze.children[2].traverse(node => {
+										if (node.isMesh) {
+											node.material = new THREE.MeshStandardMaterial({
+												color: new THREE.Color(0xCD7F32),
+												metalness: .6,
+												roughness: .3
+											})
+										}
+									});
+									vars.scene.add(bronze);
+									vars.bronzeGroup = bronze;
+
+									// Bouton
+									vars.scene.add(vars.bouton);
+
+									let elem = document.querySelector('#loading');
+									elem.parentNode.removeChild(elem);
 								});
-								vars.scene.add(silver);
-								vars.silverGroup = silver;
-
-								let bronze = gold.clone();
-								bronze.position.set(200, 10, 0);
-								bronze.rotation.y = -Math.PI / 4;
-								bronze.children[2].traverse(node => {
-									if (node.isMesh) {
-										node.material = new THREE.MeshStandardMaterial({
-											color: new THREE.Color(0xCD7F32),
-											metalness: .6,
-											roughness: .3
-										})
-									}
-								});
-								vars.scene.add(bronze);
-								vars.bronzeGroup = bronze;
-
-								let elem = document.querySelector('#loading');
-								elem.parentNode.removeChild(elem);
 							});
 						});
 					});
 				});
 			});
 		});
-		
+
 		// ajout des controles
 		vars.controls = new OrbitControls(vars.camera, vars.renderer.domElement);
 		vars.controls.minDistance = 300;
