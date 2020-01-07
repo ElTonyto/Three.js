@@ -25,7 +25,7 @@ const Scene = {
 		Scene.customAnimation();
 
 		if (Scene.vars.goldGroup !== undefined) {
-			let intersects = Scene.vars.raycaster.intersectObjects(Scene.vars.goldGroup.children, true);
+			let intersects = Scene.vars.raycaster.intersectObjects(Scene.vars.bouton.children, true);
 
 			if (intersects.length > 0) {
 				Scene.vars.animSpeed = 0.05;
@@ -68,29 +68,12 @@ const Scene = {
 			return;
 		}
 
-		if (vars.animPercent <= 0.33) {
-			Scene.vars.plaquette.position.z = 45 + (75 * vars.animPercent);
-			Scene.vars.texte.position.z = 45 + (150 * vars.animPercent);
-		}
-
 		if (vars.animPercent >= 0.20 && vars.animPercent <= 0.75) {
 			let percent = (vars.animPercent - 0.2) / 0.55;
-			vars.socle1.position.x = 25 * percent;
-			vars.socle2.position.x = -25 * percent;
-			vars.logo.position.x = 45 + 50 * percent;
-			vars.logo2.position.x = -45 - 50 * percent;
-		} else if (vars.animPercent < 0.20) {
-			vars.socle1.position.x = 0;
-			vars.socle2.position.x = 0;
-			vars.logo.position.x = 45;
-			vars.logo2.position.x = -45;
-		}
 
-		if (vars.animPercent >= 0.40) {
-			let percent = (vars.animPercent - 0.4) / 0.6;
-			vars.statuette.position.y = 50 * percent;
-		} else if (vars.animPercent < 0.70) {
-			vars.statuette.position.y = 0;
+			vars.bouton.position.y = 45 - (10 * percent);
+		} else if (vars.animPercent < 0.20) {
+			vars.bouton.position.y = 45;
 		}
 	},
 	loadFBX: (file, scale, position, rotation, color, namespace, callback) => {
@@ -304,8 +287,6 @@ const Scene = {
 		material.side = THREE.DoubleSide;
 		let sphere = new THREE.Mesh(geometry, material);
 		vars.scene.add(sphere);
-
-		
 
 		vars.texture = new THREE.TextureLoader().load('./texture/marbre.jpg');
 
