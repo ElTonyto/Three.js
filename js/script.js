@@ -58,30 +58,60 @@ const Scene = {
 			return;
 		}
 
-		if (vars.animPercent >= 0.20 && vars.animPercent <= 0.75) {
+		if (vars.animPercent >= 0.10 && vars.animPercent <= 0.8) {
 			let percent = (vars.animPercent - 0.2) / 0.55;
+			vars.bouton.position.y = 45 - (10 * percent);
+		} else if (vars.animPercent < 0.1) {
+			vars.bouton.position.y = 45;
+		}
 
+		if (vars.animPercent >= 0.3 && vars.animPercent <= 0.5) {
+			vars.scene.children[0].intensity = 0.2;
+			vars.scene.children[1].intensity = 0.6;
+			vars.scene.children[2].intensity = 0.6;
+			vars.scene.children[3].intensity = 0.6;
+		} else if (vars.animPercent < 0.3) {
+			vars.scene.children[0].intensity = 0.4;
+			vars.scene.children[1].intensity = 0.8;
+			vars.scene.children[2].intensity = 0.8;
+			vars.scene.children[3].intensity = 0.8;
+			
+		}
+
+		if (vars.animPercent >= 0.5 && vars.animPercent <= 0.7) {
+			vars.scene.children[0].intensity = 0.2;
+			vars.scene.children[1].intensity = 0.4;
+			vars.scene.children[2].intensity = 0.4;
+			vars.scene.children[3].intensity = 0.4;
+		} else if (vars.animPercent < 0.5) {
+			vars.scene.children[0].intensity = 0.4;
+			vars.scene.children[1].intensity = 0.8;
+			vars.scene.children[2].intensity = 0.8;
+			vars.scene.children[3].intensity = 0.8;
+			// red lights off
+			vars.scene.children[4].intensity = 0.0;
+			vars.scene.children[5].intensity = 0.0;
+			vars.scene.children[6].intensity = 0.0;
+		}
+
+		if (vars.animPercent >= 0.7 && vars.animPercent <= 0.9) {
 			vars.scene.children[0].intensity = 0.2;
 			vars.scene.children[1].visible = false;
 			vars.scene.children[2].visible = false;
 			vars.scene.children[3].visible = false;
-			vars.scene.children[4].intensity = 0.8;
-			vars.scene.children[5].intensity = 0.8;
-			vars.scene.children[6].intensity = 0.8;
-
-			vars.bouton.position.y = 45 - (10 * percent);
-
-
-		} else if (vars.animPercent < 0.20) {
-			console.log(vars);
+		} else if (vars.animPercent < 0.7) {
 			vars.scene.children[0].intensity = 0.5;
 			vars.scene.children[1].visible = true;
 			vars.scene.children[2].visible = true;
 			vars.scene.children[3].visible = true;
-			vars.scene.children[4].intensity = 0.0;
-			vars.scene.children[5].intensity = 0.0;
-			vars.scene.children[6].intensity = 0.0;
-			vars.bouton.position.y = 45;
+			
+		}
+
+		if (vars.animPercent > 0.9) {
+			// red lights on
+			vars.scene.children[4].intensity = 0.8;
+			vars.scene.children[5].intensity = 0.8;
+			vars.scene.children[6].intensity = 0.8;
 		}
 	},
 	loadFBX: (file, scale, position, rotation, color, namespace, callback) => {
