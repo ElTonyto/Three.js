@@ -61,19 +61,26 @@ const Scene = {
 		if (vars.animPercent >= 0.20 && vars.animPercent <= 0.75) {
 			let percent = (vars.animPercent - 0.2) / 0.55;
 
-			vars.scene.children[0].visible = false;
+			vars.scene.children[0].intensity = 0.2;
 			vars.scene.children[1].visible = false;
 			vars.scene.children[2].visible = false;
 			vars.scene.children[3].visible = false;
+			vars.scene.children[4].intensity = 0.8;
+			vars.scene.children[5].intensity = 0.8;
+			vars.scene.children[6].intensity = 0.8;
+
 			vars.bouton.position.y = 45 - (10 * percent);
 
 
 		} else if (vars.animPercent < 0.20) {
 			console.log(vars);
-			vars.scene.children[0].visible = true;
+			vars.scene.children[0].intensity = 0.5;
 			vars.scene.children[1].visible = true;
 			vars.scene.children[2].visible = true;
-			vars.scene.children[3].visible = true;	
+			vars.scene.children[3].visible = true;
+			vars.scene.children[4].intensity = 0.0;
+			vars.scene.children[5].intensity = 0.0;
+			vars.scene.children[6].intensity = 0.0;
 			vars.bouton.position.y = 45;
 		}
 	},
@@ -254,6 +261,47 @@ const Scene = {
 		vars.scene.add(light3);
 		// let helper3 = new THREE.DirectionalLightHelper(light3, 5);
 		// vars.scene.add(helper3);
+
+		const noLight = .0;
+		let light4 = new THREE.DirectionalLight(0xFF0000, noLight);
+		light4.position.set(0, 700, 0);
+		light4.castShadow = true;
+		light4.shadow.camera.left = -d;
+		light4.shadow.camera.right = d;
+		light4.shadow.camera.top = d;
+		light4.shadow.camera.bottom = -d;
+		light4.shadow.camera.far = 2000;
+		light4.shadow.mapSize.width = 4096;
+		light4.shadow.mapSize.height = 4096;
+		vars.scene.add(light4);
+
+
+		let light5 = new THREE.DirectionalLight(0xFF0000, noLight);
+		light5.position.set(0, 700, 0);
+		light5.castShadow = true;
+		light5.shadow.camera.left = -d;
+		light5.shadow.camera.right = d;
+		light5.shadow.camera.top = d;
+		light5.shadow.camera.bottom = -d;
+		light5.shadow.camera.far = 2000;
+		light5.shadow.mapSize.width = 4096;
+		light5.shadow.mapSize.height = 4096;
+		vars.scene.add(light5);
+
+
+		let light6 = new THREE.DirectionalLight(0xFF0000, noLight);
+		light6.position.set(0, 700, 0);
+		light6.castShadow = true;
+		light6.shadow.camera.left = -d;
+		light6.shadow.camera.right = d;
+		light6.shadow.camera.top = d;
+		light6.shadow.camera.bottom = -d;
+		light6.shadow.camera.far = 2000;
+		light6.shadow.mapSize.width = 4096;
+		light6.shadow.mapSize.height = 4096;
+		vars.scene.add(light6);
+
+
 
 		// ajout du sol
 		let mesh = new THREE.Mesh(
