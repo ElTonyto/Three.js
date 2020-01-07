@@ -24,7 +24,7 @@ const Scene = {
 
 		Scene.customAnimation();
 
-		if (Scene.vars.goldGroup !== undefined) {
+		if (Scene.vars.bouton !== undefined) {
 			let intersects = Scene.vars.raycaster.intersectObjects(Scene.vars.bouton.children, true);
 
 			if (intersects.length > 0) {
@@ -32,16 +32,6 @@ const Scene = {
 			} else {
 				Scene.vars.animSpeed = -0.05;
 			}
-
-			// let mouse = new THREE.Vector3(Scene.vars.mouse.x, Scene.vars.mouse.y, 0);
-			// mouse.unproject(Scene.vars.camera);
-
-			// let ray = new THREE.Raycaster(Scene.vars.camera.position, mouse.sub(Scene.vars.camera.position).normalize()); 
-			// let intersects = ray.intersectObjects(Scene.vars.goldGroup.children, true);
-			// if(intersects.length > 0) {
-			// 	var arrow = new THREE.ArrowHelper(ray.ray.direction, ray.ray.origin, 1000, 0xFF00000);
-			// 	Scene.vars.scene.add(arrow);
-			// }
 		}
 
 		Scene.render();
@@ -71,8 +61,19 @@ const Scene = {
 		if (vars.animPercent >= 0.20 && vars.animPercent <= 0.75) {
 			let percent = (vars.animPercent - 0.2) / 0.55;
 
+			vars.scene.children[0].visible = false;
+			vars.scene.children[1].visible = false;
+			vars.scene.children[2].visible = false;
+			vars.scene.children[3].visible = false;
 			vars.bouton.position.y = 45 - (10 * percent);
+
+
 		} else if (vars.animPercent < 0.20) {
+			console.log(vars);
+			vars.scene.children[0].visible = true;
+			vars.scene.children[1].visible = true;
+			vars.scene.children[2].visible = true;
+			vars.scene.children[3].visible = true;	
 			vars.bouton.position.y = 45;
 		}
 	},
