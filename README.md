@@ -5,7 +5,7 @@ Final task of WebGL classes - Tony Pedrero
 ## Starting the project
 
 The first thing to do in order to get a working project is to download the
-Three.js's master to this link : [https://github.com/mrdoob/three.js/archive/master.zip] https://github.com/mrdoob/three.js/archive/master.zip.
+Three.js's master to this link : https://github.com/mrdoob/three.js/archive/master.zip.
 Then you will have to unzip it into a vendor directory you will create.
 
 Finally, you will have to run a server on your computer ( for instance: php -S localhost:8080 in a shell).
