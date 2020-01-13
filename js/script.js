@@ -33,7 +33,6 @@ const Scene = {
 				Scene.vars.animSpeed = -0.05;
 			}
 		}
-
 		Scene.render();
 	},
 	render: () => {
@@ -58,14 +57,14 @@ const Scene = {
 			return;
 		}
 
-		if (vars.animPercent >= 0.0 && vars.animPercent <= 0.7) {
+		if (vars.animPercent >= 0.0 && vars.animPercent <= 0.3) {
 			let percent = (vars.animPercent - 0.2) / 0.55;
 			vars.bouton.position.y = 45 - (10 * percent);
 		} else if (vars.animPercent < 0.1) {
 			vars.bouton.position.y = 45;
 		}
 
-		if (vars.animPercent >= 0.2 && vars.animPercent <= 0.4) {
+		if (vars.animPercent >= 0.1 && vars.animPercent <= 0.2) {
 			vars.scene.children[0].intensity = 0.2;
 			vars.scene.children[1].intensity = 0.6;
 			vars.scene.children[2].intensity = 0.6;
@@ -75,10 +74,9 @@ const Scene = {
 			vars.scene.children[1].intensity = 0.8;
 			vars.scene.children[2].intensity = 0.8;
 			vars.scene.children[3].intensity = 0.8;
-			
 		}
 
-		if (vars.animPercent >= 0.4 && vars.animPercent <= 0.6) {
+		if (vars.animPercent >= 0.2 && vars.animPercent <= 0.3) {
 			vars.scene.children[0].intensity = 0.2;
 			vars.scene.children[1].intensity = 0.4;
 			vars.scene.children[2].intensity = 0.4;
@@ -94,25 +92,27 @@ const Scene = {
 			vars.scene.children[6].intensity = 0.0;
 		}
 
-		if (vars.animPercent >= 0.6 && vars.animPercent <= 0.9) {
-			vars.scene.children[0].intensity = 0.2;
+		if (vars.animPercent >= 0.3 && vars.animPercent <= 0.9) {
+			vars.scene.children[0].visible = false;
 			vars.scene.children[1].visible = false;
 			vars.scene.children[2].visible = false;
 			vars.scene.children[3].visible = false;
-		} else if (vars.animPercent < 0.6) {
+			vars.scene.children[14].children[0].visible = true;
+		} else if (vars.animPercent < 0.3) {
 			vars.scene.children[0].intensity = 0.5;
 			vars.scene.children[1].visible = true;
 			vars.scene.children[2].visible = true;
 			vars.scene.children[3].visible = true;
 			
 		}
-
+		//Full red lights and dragon appearence
 		if (vars.animPercent > 0.9) {
 			// red lights on
 			vars.scene.children[4].intensity = 0.8;
 			vars.scene.children[5].intensity = 0.8;
 			vars.scene.children[6].intensity = 0.8;
-		}
+		console.log(vars.scene)};
+
 	},
 	loadFBX: (file, scale, position, rotation, color, namespace, callback) => {
 		let vars = Scene.vars;
@@ -144,6 +144,14 @@ const Scene = {
 						})
 					}
 
+					if (namespace === "buba") {
+						child.material = new THREE.MeshStandardMaterial({
+							color: new THREE.Color(color),
+							roughness: 1,
+							metalness: 1
+						})
+					}
+
 					child.material.color = new THREE.Color(color);
 				}
 			});
@@ -161,7 +169,6 @@ const Scene = {
 
 			callback();
 		});
-
 	},
 	loadText: (text, scale, position, rotation, color, namespace, callback) => {
 		let loader = new THREE.FontLoader();
@@ -239,7 +246,7 @@ const Scene = {
 
 		// ajout de la caméra
 		vars.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-		vars.camera.position.set(-1.5, 210, 572);
+		vars.camera.position.set(-1.5, 30, 1000);
 
 		// ajout de la lumière
 		const lightIntensityHemisphere = .5;
@@ -292,44 +299,68 @@ const Scene = {
 		// let helper3 = new THREE.DirectionalLightHelper(light3, 5);
 		// vars.scene.add(helper3);
 
-		const noLight = .0;
-		let light4 = new THREE.DirectionalLight(0xFF0000, noLight);
-		light4.position.set(0, 700, 0);
-		light4.castShadow = true;
-		light4.shadow.camera.left = -d;
-		light4.shadow.camera.right = d;
-		light4.shadow.camera.top = d;
-		light4.shadow.camera.bottom = -d;
-		light4.shadow.camera.far = 2000;
-		light4.shadow.mapSize.width = 4096;
-		light4.shadow.mapSize.height = 4096;
-		vars.scene.add(light4);
+		// const noLight = .0;
+		// let light4 = new THREE.DirectionalLight(0xFF0000, noLight);
+		// light4.position.set(0, 700, 0);
+		// light4.castShadow = true;
+		// light4.shadow.camera.left = -d;
+		// light4.shadow.camera.right = d;
+		// light4.shadow.camera.top = d;
+		// light4.shadow.camera.bottom = -d;
+		// light4.shadow.camera.far = 2000;
+		// light4.shadow.mapSize.width = 4096;
+		// light4.shadow.mapSize.height = 4096;
+		// vars.scene.add(light4);
 
 
-		let light5 = new THREE.DirectionalLight(0xFF0000, noLight);
-		light5.position.set(0, 700, 0);
-		light5.castShadow = true;
-		light5.shadow.camera.left = -d;
-		light5.shadow.camera.right = d;
-		light5.shadow.camera.top = d;
-		light5.shadow.camera.bottom = -d;
-		light5.shadow.camera.far = 2000;
-		light5.shadow.mapSize.width = 4096;
-		light5.shadow.mapSize.height = 4096;
-		vars.scene.add(light5);
+		// let light5 = new THREE.DirectionalLight(0xFF0000, noLight);
+		// light5.position.set(0, 700, 0);
+		// light5.castShadow = true;
+		// light5.shadow.camera.left = -d;
+		// light5.shadow.camera.right = d;
+		// light5.shadow.camera.top = d;
+		// light5.shadow.camera.bottom = -d;
+		// light5.shadow.camera.far = 2000;
+		// light5.shadow.mapSize.width = 4096;
+		// light5.shadow.mapSize.height = 4096;
+		// vars.scene.add(light5);
 
 
-		let light6 = new THREE.DirectionalLight(0xFF0000, noLight);
-		light6.position.set(0, 700, 0);
-		light6.castShadow = true;
-		light6.shadow.camera.left = -d;
-		light6.shadow.camera.right = d;
-		light6.shadow.camera.top = d;
-		light6.shadow.camera.bottom = -d;
-		light6.shadow.camera.far = 2000;
-		light6.shadow.mapSize.width = 4096;
-		light6.shadow.mapSize.height = 4096;
-		vars.scene.add(light6);
+		// let light6 = new THREE.DirectionalLight(0xFF0000, noLight);
+		// light6.position.set(0, 700, 0);
+		// light6.castShadow = true;
+		// light6.shadow.camera.left = -d;
+		// light6.shadow.camera.right = d;
+		// light6.shadow.camera.top = d;
+		// light6.shadow.camera.bottom = -d;
+		// light6.shadow.camera.far = 2000;
+		// light6.shadow.mapSize.width = 4096;
+		// light6.shadow.mapSize.height = 4096;
+		// vars.scene.add(light6);
+
+		let spotLight1 = new THREE.SpotLight(0xFF0000, lightIntensity);
+		spotLight1.position.set(160, 320, -600);
+		spotLight1.castShadow = true;
+		spotLight1.shadow.camera.left = -d;
+		spotLight1.shadow.camera.right = d;
+		spotLight1.shadow.camera.top = d;
+		spotLight1.shadow.camera.bottom = -d;
+		spotLight1.shadow.camera.far = 2000;
+		spotLight1.shadow.mapSize.width = 4096;
+		spotLight1.shadow.mapSize.height = 4096;
+		vars.scene.add(spotLight1);
+
+		let spotLight2 = new THREE.SpotLight(0xFF0000, lightIntensity);
+		spotLight2.position.set(-160, 320, -600);
+		spotLight2.castShadow = true;
+		spotLight2.shadow.camera.left = -d;
+		spotLight2.shadow.camera.right = d;
+		spotLight2.shadow.camera.top = d;
+		spotLight2.shadow.camera.bottom = -d;
+	 	spotLight2.shadow.camera.far = 2000;
+		spotLight2.shadow.mapSize.width = 4096;
+		spotLight2.shadow.mapSize.height = 4096;
+		vars.scene.add(spotLight2);
 
 
 
@@ -362,7 +393,7 @@ const Scene = {
 
 		// ajout de la sphère
 		let geometry = new THREE.SphereGeometry(1000, 32, 32);
-		let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(0xFFFFFF) });
+		let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(0x000000) });
 		material.side = THREE.DoubleSide;
 		let sphere = new THREE.Mesh(geometry, material);
 		vars.scene.add(sphere);
@@ -381,7 +412,7 @@ const Scene = {
 					Scene.loadFBX("Socle_Partie2.FBX", 10, [0, 0, 0], [0, 0, 0], 0x1A1A1A, 'socle2', () => {
 						Scene.loadFBX("Plaquette.FBX", 10, [0, 4, 45], [0, 0, 0], 0xFFFFFF, 'plaquette', () => {
 							Scene.loadFBX("Button.FBX", 10, [0, 45, 180], [0, 0, 0], 0xFF0000, 'bouton', () => {
-								Scene.loadFBX("Dragon.fbx", 8, [0, 0, -80], [0, 0, 0], 0xFF0000, 'buba', () => {
+								Scene.loadFBX("Mask.fbx", 50, [0, 300, -700], [0, 0, 0], 0xFF0000, 'buba', () => {
 								Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
 
 									let vars = Scene.vars;
@@ -468,8 +499,20 @@ const Scene = {
 									});
 									vars.scene.add(vars.bouton);
 
+									vars.buba.traverse(node => {
+										if (node.isMesh) {
+											node.material = new THREE.MeshStandardMaterial({
+												// color: new THREE.Color(0x007FFF),
+												color: new THREE.Color(0x660000),
+												metalness: .3,
+												roughness: .3
+											})
+										}
+									});
+									vars.buba.name = "buba";
 									vars.scene.add(vars.buba);
-
+									vars.scene.children[14].children[0].visible = false;
+									
 									let elem = document.querySelector('#loading');
 									elem.parentNode.removeChild(elem);
 								});
@@ -499,6 +542,8 @@ const Scene = {
 		vars.container.appendChild(vars.stats.dom);
 
 		Scene.animate();
+
+		console.log(vars.scene);
 	}
 };
 
