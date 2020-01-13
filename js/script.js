@@ -381,6 +381,7 @@ const Scene = {
 					Scene.loadFBX("Socle_Partie2.FBX", 10, [0, 0, 0], [0, 0, 0], 0x1A1A1A, 'socle2', () => {
 						Scene.loadFBX("Plaquette.FBX", 10, [0, 4, 45], [0, 0, 0], 0xFFFFFF, 'plaquette', () => {
 							Scene.loadFBX("Button.FBX", 10, [0, 45, 180], [0, 0, 0], 0xFF0000, 'bouton', () => {
+								Scene.loadFBX("Dragon.fbx", 8, [0, 0, -80], [0, 0, 0], 0xFF0000, 'buba', () => {
 								Scene.loadText(Scene.vars.text, 10, [0, 23, 52], [0, 0, 0], 0x1A1A1A, "texte", () => {
 
 									let vars = Scene.vars;
@@ -467,9 +468,12 @@ const Scene = {
 									});
 									vars.scene.add(vars.bouton);
 
+									vars.scene.add(vars.buba);
+
 									let elem = document.querySelector('#loading');
 									elem.parentNode.removeChild(elem);
 								});
+							});
 							});
 						});
 					});
