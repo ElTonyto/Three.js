@@ -18,6 +18,6 @@ I have added a red button to the scene. This button is made of a BoxGeomerty and
 
 Both of these elements are MeshMaterials and react to the lights (reflexion and shadows).
 
-I added an animation when the user passes on the button, it starts pressing down. At the same time, the lights intensity goes down until going to complete dark. At the end, the scene is lighted in red.
+I added an animation when the user passes on the button, it starts pressing down. At the same time, the lights intensity goes down until going to complete dark. At the end, the scene is lighted in red and a huge and scary mask appears.
 
-When the user leaves the mouse from the button, the animation goes back to the normal lights and colors.
+When the user leaves the mouse from the button, the animation goes back to the normal lights and colors but also keeps the mask and the new lights.
