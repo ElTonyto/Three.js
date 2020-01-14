@@ -111,6 +111,20 @@ const Scene = {
 			vars.scene.children[4].intensity = 0.8;
 			vars.scene.children[5].intensity = 0.8;
 			vars.scene.children[6].intensity = 0.8;
+			vars.scene.children[4].visible = true;
+		vars.scene.children[5].visible = true;
+		const d = 1000;
+		let light4 = new THREE.DirectionalLight(0xFF0000, 0.1);
+		light4.position.set(400, 200, 400);
+		light4.castShadow = true;
+		light4.shadow.camera.left = -d;
+		light4.shadow.camera.right = d;
+		light4.shadow.camera.top = d;
+		light4.shadow.camera.bottom = -d;
+		light4.shadow.camera.far = 2000;
+		light4.shadow.mapSize.width = 4096;
+		light4.shadow.mapSize.height = 4096;
+		vars.scene.add(light4);
 		console.log(vars.scene)};
 
 	},
@@ -296,47 +310,6 @@ const Scene = {
 		light3.shadow.mapSize.width = 4096;
 		light3.shadow.mapSize.height = 4096;
 		vars.scene.add(light3);
-		// let helper3 = new THREE.DirectionalLightHelper(light3, 5);
-		// vars.scene.add(helper3);
-
-		// const noLight = .0;
-		// let light4 = new THREE.DirectionalLight(0xFF0000, noLight);
-		// light4.position.set(0, 700, 0);
-		// light4.castShadow = true;
-		// light4.shadow.camera.left = -d;
-		// light4.shadow.camera.right = d;
-		// light4.shadow.camera.top = d;
-		// light4.shadow.camera.bottom = -d;
-		// light4.shadow.camera.far = 2000;
-		// light4.shadow.mapSize.width = 4096;
-		// light4.shadow.mapSize.height = 4096;
-		// vars.scene.add(light4);
-
-
-		// let light5 = new THREE.DirectionalLight(0xFF0000, noLight);
-		// light5.position.set(0, 700, 0);
-		// light5.castShadow = true;
-		// light5.shadow.camera.left = -d;
-		// light5.shadow.camera.right = d;
-		// light5.shadow.camera.top = d;
-		// light5.shadow.camera.bottom = -d;
-		// light5.shadow.camera.far = 2000;
-		// light5.shadow.mapSize.width = 4096;
-		// light5.shadow.mapSize.height = 4096;
-		// vars.scene.add(light5);
-
-
-		// let light6 = new THREE.DirectionalLight(0xFF0000, noLight);
-		// light6.position.set(0, 700, 0);
-		// light6.castShadow = true;
-		// light6.shadow.camera.left = -d;
-		// light6.shadow.camera.right = d;
-		// light6.shadow.camera.top = d;
-		// light6.shadow.camera.bottom = -d;
-		// light6.shadow.camera.far = 2000;
-		// light6.shadow.mapSize.width = 4096;
-		// light6.shadow.mapSize.height = 4096;
-		// vars.scene.add(light6);
 
 		let spotLight1 = new THREE.SpotLight(0xFF0000, lightIntensity);
 		spotLight1.position.set(160, 320, -600);
@@ -349,7 +322,7 @@ const Scene = {
 		spotLight1.shadow.mapSize.width = 4096;
 		spotLight1.shadow.mapSize.height = 4096;
 		vars.scene.add(spotLight1);
-
+		
 		let spotLight2 = new THREE.SpotLight(0xFF0000, lightIntensity);
 		spotLight2.position.set(-160, 320, -600);
 		spotLight2.castShadow = true;
@@ -362,7 +335,8 @@ const Scene = {
 		spotLight2.shadow.mapSize.height = 4096;
 		vars.scene.add(spotLight2);
 
-
+		vars.scene.children[4].visible = false;
+		vars.scene.children[5].visible = false;
 
 		// ajout du sol
 		let mesh = new THREE.Mesh(
@@ -384,12 +358,6 @@ const Scene = {
 		shadowPlane.receiveShadow = true;
 
 		vars.scene.add(shadowPlane);
-
-		// ajout de la texture helper du sol
-		// let grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
-		// grid.material.opacity = 0.2;
-		// grid.material.transparent = true;
-		// vars.scene.add(grid);
 
 		// ajout de la sphère
 		let geometry = new THREE.SphereGeometry(1000, 32, 32);
